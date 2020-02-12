@@ -1,12 +1,21 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="https://picsum.photos/200/300">
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-// @ is an alias to /src
+import axios from 'axios'
+
 @Component
-export default class Dynamic extends Vue {}
+export default class Dynamic extends Vue {
+  public imageList: string[] = []
+
+  public mounted(): void {
+    axios.get('https://picsum.photos/v2/list?limit=10').then((response) => {
+      console.log(response.data)
+      this.imageList = response.data
+    })
+  }
+}
 </script>
